@@ -27,7 +27,7 @@ public class App
         System.out.println(FractionImpl.attack(house1, house2));
         System.out.println(FractionImpl.join(house1, house2));
         System.out.println(FractionImpl.join(house2, house1));
-        System.out.println(house1.getFeudalLordOf() + " " + house1.getName());
-        System.out.println(house2.getFeudalLordOf() + " " + house2.getName());
+        System.out.println(house1.isLoyalTo() + " " + house1.getName());
+        System.out.println(house2.isLoyalTo() + " " + house2.getName());
     }
 }
