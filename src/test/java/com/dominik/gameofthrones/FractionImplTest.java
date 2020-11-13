@@ -96,7 +96,7 @@ public class FractionImplTest {
 
         int expectedArmySizeHouseTwo = 300;
 
-        assertFalse(houseImpl.join(house1, house2));
+        assertTrue(houseImpl.join(house1, house2));
         assertEquals(expectedArmySizeHouseTwo, house2.getArmy());
 
     }
