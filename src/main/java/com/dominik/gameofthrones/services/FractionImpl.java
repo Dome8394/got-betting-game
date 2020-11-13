@@ -6,40 +6,27 @@ import com.dominik.gameofthrones.interfaces.IFraction;
 public class FractionImpl implements IFraction {
 
     @Override
-    public boolean attack(Fraction h1, Fraction h2) {
+    public boolean attack(Fraction f1, Fraction f2) {
 
-        if (isReadyForWar(h1, h2)) {
+        if (isReadyForWar(f1, f2)) {
 
-            if (h1.getArmy() > h2.getArmy()) {
-                countDefeatedSoldiers(h1, h2);
+            if (f1.getArmy() > f2.getArmy()) {
+                countDefeatedSoldiers(f1, f2);
                 return true;
             }
-
-            // if (h1.getArmy() == h2.getArmy()) {
-            // int chooseRandomWinner = 0;
-            // chooseRandomWinner = (int) Math.random() * 2;
-
-            // if (chooseRandomWinner == 1) {
-            // countDefeatedSoldiers(h1, h2);
-            // return true;
-            // }
-
-            // countDefeatedSoldiers(h2, h1);
-            // return false;
-            // }
         }
 
-        countDefeatedSoldiers(h2, h1);
+        countDefeatedSoldiers(f2, f1);
 
         return false;
     }
 
     @Override
-    public boolean join(Fraction h1, Fraction h2) {
+    public boolean join(Fraction f1, Fraction f2) {
 
-        if (isReadyForWar(h1, h2) && verifyLoyalty(h1, h2)) {
-            h2.setArmy(h1.getArmy() + h2.getArmy());
-            h1.swearLoyaltyTo(h2.getName());
+        if (isReadyForWar(f1, f2) && verifyLoyalty(f1, f2)) {
+            f2.setArmy(f1.getArmy() + f2.getArmy());
+            f1.swearLoyaltyTo(f2.getName());
             return true;
         }
 
@@ -47,23 +34,22 @@ public class FractionImpl implements IFraction {
     }
 
     @Override
-    public int recruitArmy(Fraction Fraction) {
-        // TODO Auto-generated method stub
-        return 0;
+    public int recruitArmy() {
+        return 50;
     }
 
     /**
-     * Verifies if both Fractions are ready for war, i.e., if both Fractions are
-     * still alive are still have an army
+     * If both Fractions are alive and have an army size larger than 0 they are
+     * considered to be ready for war actions, i.e., attacking.
      * 
      * @param FractionOneAlive
      * @param FractionTwoAlive
      * @return true if both are alive, false otherwise
      */
-    private boolean isReadyForWar(Fraction h1, Fraction h2) {
+    private boolean isReadyForWar(Fraction f1, Fraction f2) {
 
-        if (h1.isAlive() && h2.isAlive()) {
-            if (h1.getArmy() != 0 && h2.getArmy() != 0) {
+        if (f1.isAlive() && f2.isAlive()) {
+            if (f1.getArmy() != 0 && f2.getArmy() != 0) {
                 return true;
             }
         }
@@ -71,18 +57,18 @@ public class FractionImpl implements IFraction {
     }
 
     /**
-     * Checks if house h1 is already loyal to house 2 and if house 2 is loyal to
+     * Checks if house f1 is already loyal to house 2 and if house 2 is loyal to
      * house 1.
      * 
-     * @param h1
-     * @param h2
+     * @param f1
+     * @param f2
      * @return true if house 1 is not loyal to house 2 and house 2 is not loyal to
      *         house 1, false otherwise
      */
-    public boolean verifyLoyalty(Fraction h1, Fraction h2) {
+    public boolean verifyLoyalty(Fraction f1, Fraction f2) {
 
-        if (h1.isLoyalTo() == h1.getName()) {
-            if (h1.isLoyalTo() != h2.getName() && h2.isLoyalTo() != h1.getName()) {
+        if (f1.isLoyalTo() == f1.getName()) {
+            if (f1.isLoyalTo() != f2.getName() && f2.isLoyalTo() != f1.getName()) {
                 return true;
             }
         }
@@ -93,18 +79,18 @@ public class FractionImpl implements IFraction {
     /**
      * Calculates the number of defeated soldiers based on the winner
      * 
-     * @param h1
-     * @param h2
+     * @param f1
+     * @param f2
      */
-    private void countDefeatedSoldiers(Fraction h1, Fraction h2) {
+    private void countDefeatedSoldiers(Fraction f1, Fraction f2) {
 
-        int countDefeatedSoldiersH1 = 0;
-        int countDefeatedSoldiersH2 = 0;
+        int defeatedSoldiersF1 = 0;
+        int defeatedSoldiersF2 = 0;
 
-        countDefeatedSoldiersH1 = h1.getArmy() * 1 / 3;
-        countDefeatedSoldiersH2 = h2.getArmy() * 2 / 3;
-        h1.setArmy(h1.getArmy() - countDefeatedSoldiersH1);
-        h2.setArmy(h2.getArmy() - countDefeatedSoldiersH2);
+        defeatedSoldiersF1 = f1.getArmy() * 1 / 3;
+        defeatedSoldiersF2 = f2.getArmy() * 2 / 3;
+        f1.setArmy(f1.getArmy() - defeatedSoldiersF1);
+        f2.setArmy(f2.getArmy() - defeatedSoldiersF2);
 
     }
 
